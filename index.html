@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+        }
+        .body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        canvas {
+            border: 1px solid #fff;
+        }
+        #score{
+            color: #fff;
+            position: absolute;
+            margin-bottom:560px; 
+            margin-right: 545px;
+        }
+        #button-section{
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: flex-start;
+            position: absolute;
+        }
+        #restart-section{
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: flex-start;
+            position: absolute;
+        }
+        #settings{
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: flex-start;
+            position: absolute;
+            visibility: hidden;
+            background-color: black;
+            border: 1px solid rgb(196, 190, 190);
+            padding: 40px 50px;
+        }
+        .game_sound{
+            color: gray;
+            background-color: #222;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 30px;
+            font-weight: 600;
+        }
+        .label{
+            display: flex;
+            gap: 20px;
+            /* background-color: #fff; */
+            color: gray;
+            font-size: 30px;
+            font-weight: 500;
+        }
+        .musicOn{
+            text-align: center;
+            width: 60px;
+            color: #222;
+            background-color: rgb(6, 108, 6);
+            border-radius: 15px;
+            padding: 5px 6px;
+            font-size: 17px;
+            font-weight: 600;
+            outline: none;
+            border: none;
+        }
+        .musicOn:hover{
+            cursor: pointer;
+            background-color: rgb(8, 125, 8) ;
+        }
+        .musicOff{
+            text-align: center;
+            width: 60px;
+            color: #222;
+            background-color: rgb(149, 9, 9);
+            border-radius: 15px;
+            padding: 5px 6px;
+            font-size: 17px;
+            font-weight: 600;
+            outline: none;
+            border: none;
+        }
+        .musicOff:hover{
+            cursor: pointer;
+            background-color: rgb(166, 10, 10);
+        }
+
+        .sfxOn{
+            text-align: center;
+            width: 60px;
+            color: #222;
+            background-color: rgb(6, 108, 6);
+            border-radius: 15px;
+            padding: 5px 6px;
+            font-size: 17px;
+            font-weight: 600;
+            outline: none;
+            border: none;
+        }
+        .sfx:hover{
+            cursor: pointer;
+            background-color: rgb(8, 125, 8) ;
+        }
+        .sfxOff{
+            text-align: center;
+            width: 60px;
+            color: #222;
+            background-color: rgb(149, 9, 9);
+            border-radius: 15px;
+            padding: 5px 6px;
+            font-size: 17px;
+            font-weight: 600;
+            outline: none;
+            border: none;
+        }
+        .sfxOff:hover{
+            cursor: pointer;
+            background-color: rgb(166, 10, 10);
+        }
+        
+        .button{
+            
+            color: gray;
+            background-color: #222;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 30px;
+            font-weight: 600;
+           
+        }
+        .button:hover{
+            color: rgb(103, 102, 102);
+            transform: translateY(-0.3rem) scaleY(1.01) ;
+           
+        }
+        .cross_icon{
+            width: 20px;
+            position: absolute;
+            margin-bottom: 210px;
+            margin-left: 270px;
+            visibility: hidden;
+            cursor: pointer;
+        }
+        .gameover{
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(65, 61, 61);
+            opacity: 0.9;
+            font-size: 50px;
+            font-weight: 600; 
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            visibility: hidden;
+        }
+        .gameover span{
+            font-size: 25px;
+            color: #2e2d2d;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+    <div id="score"></div>
+    <div class="gameover"><div>Game Over!</div><span>Press any key to continue...</span></div>
+    <canvas id="canvas" width="600" height="540"></canvas>
+    <div id="button-section">
+        <button class="button" id="start-button" onclick="gameLoop()">Start Game</button>
+        <button class="button" onclick="setting()">Settings</button>
+    </div>
+    <img class="cross_icon" src="./music/close-circle-fill.png" alt="img error" onclick="closeSettings()">
+    <div id="settings">
+        <label class="label" for="music">Music <button class="musicOn" id="game_music" onclick="music()">ON</button>  
+        </label>
+        <label class="label" for="sfx">Sfx <button class="sfxOn" id="sfx" onclick="Sfx()">ON</button></label>
+    </div>
+</div>
+    <script src="index.js"></script>
+</body>
+</html>
