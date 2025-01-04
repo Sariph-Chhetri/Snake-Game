@@ -24,54 +24,6 @@ let snake = [
 ];
 let direction = { x: blockSize, y: 0 }; // snake movement direction
 
-window.addEventListener("keydown", (event) => {
-  switch (event.key) {
-    // Arrow Keys (for movement)
-    case "ArrowUp":
-    case "w":
-      if (direction.y === 0) {
-        // Allow up only if not moving vertically
-        direction = { x: 0, y: -blockSize };
-        if (sfx.innerHTML === "ON") {
-          moveAudio.play();
-        }
-      }
-      break;
-    case "ArrowDown":
-    case "s":
-      if (direction.y === 0) {
-        // Allow down only if not moving vertically
-        direction = { x: 0, y: blockSize };
-        if (sfx.innerHTML === "ON") {
-          moveAudio.play();
-        }
-      }
-      break;
-    case "ArrowRight":
-    case "d":
-      if (direction.x === 0) {
-        // Allow right only if not moving horizontally
-        direction = { x: blockSize, y: 0 };
-        if (sfx.innerHTML === "ON") {
-          moveAudio.play();
-        }
-      }
-      break;
-    case "ArrowLeft":
-    case "a":
-      if (direction.x === 0) {
-        // Allow left only if not moving horizontally
-        direction = { x: -blockSize, y: 0 };
-        if (sfx.innerHTML === "ON") {
-          moveAudio.play();
-        }
-      }
-      break;
-    default:
-      break;
-  }
-});
-
 // functions inside gameloop
 function drawSnake() {
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -119,6 +71,55 @@ function gameLoop() {
   scoreDiv.innerHTML = `Score : ${score}`;
   button_section.style.display = "none";
   interval = setInterval(updateGame, speed);
+
+  //Handling snake movement
+  window.addEventListener("keydown", (event) => {
+    switch (event.key) {
+      // Arrow Keys (for movement)
+      case "ArrowUp":
+      case "w":
+        if (direction.y === 0) {
+          // Allow up only if not moving vertically
+          direction = { x: 0, y: -blockSize };
+          if (sfx.innerHTML === "ON") {
+            moveAudio.play();
+          }
+        }
+        break;
+      case "ArrowDown":
+      case "s":
+        if (direction.y === 0) {
+          // Allow down only if not moving vertically
+          direction = { x: 0, y: blockSize };
+          if (sfx.innerHTML === "ON") {
+            moveAudio.play();
+          }
+        }
+        break;
+      case "ArrowRight":
+      case "d":
+        if (direction.x === 0) {
+          // Allow right only if not moving horizontally
+          direction = { x: blockSize, y: 0 };
+          if (sfx.innerHTML === "ON") {
+            moveAudio.play();
+          }
+        }
+        break;
+      case "ArrowLeft":
+      case "a":
+        if (direction.x === 0) {
+          // Allow left only if not moving horizontally
+          direction = { x: -blockSize, y: 0 };
+          if (sfx.innerHTML === "ON") {
+            moveAudio.play();
+          }
+        }
+        break;
+      default:
+        break;
+    }
+  });
 }
 
 function updateGame() {
@@ -144,6 +145,7 @@ function updateGame() {
       .some((segment) => segment.x === snake[0].x && segment.y === snake[0].y) // collision with body
   ) {
     gameOver();
+    moveAudio.pause();
   }
 }
 
@@ -180,11 +182,13 @@ function gameOver() {
   gameover.style.visibility = "visible";
 
   // Add the keydown event listener (on Enter key)
-  gameOverKeyListener = () => {
-    gameover.style.visibility = "hidden";
-    resetgame();
-
-    window.removeEventListener("keydown", gameOverKeyListener);
+  gameOverKeyListener = (e) => {
+    if(e.key ==="Enter"){
+      gameover.style.visibility = "hidden";
+      resetgame();
+  
+      window.removeEventListener("keydown", gameOverKeyListener);
+    }
   };
   window.addEventListener("keydown", gameOverKeyListener);
 
